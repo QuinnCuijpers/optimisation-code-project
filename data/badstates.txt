@@ -1,0 +1,13 @@
+6
+0 1 1 0
+0 1 1 1
+0 0 1 1
+1 0 0 1
+1 0 0 0
+1 1 0 0
+
+
+Farmer Wolf Goat Cabbage
+
+
+currently states are given to us as boolean arrays, this should be changed
