@@ -1,5 +1,5 @@
 from typing import List, Set, Optional, Deque
-from .State import State
+from .state import State
 from collections import deque
 from collections.abc import Iterable
 

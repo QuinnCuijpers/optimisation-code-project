@@ -1,5 +1,5 @@
-from src.FarmerGame import FarmerGame
-from src.State import State
+from src.farmerGame import FarmerGame
+from src.state import State
 from typing import Set
 from src.dataReader import gameReader, badStateReader
 
