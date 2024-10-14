@@ -1,0 +1,3 @@
+Captain Pirate0 Pirate1 Pirate2 Gold0 Gold1 Gold2 Gold3 Gold4
+0 0 0 0 0 0 0 0 0
+1 1 1 1 1 1 1 1 1

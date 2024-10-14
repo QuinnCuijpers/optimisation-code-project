@@ -7,11 +7,11 @@ from src.dataReader import gameReader, badStateReader
 if __name__ == "__main__":
 
     game: FarmerGame = gameReader(
-        "./data/data.txt"
-    )  # change to ./data/alphabetData.txt for example 2
+        "./data/Data.txt"
+    )  # change to ./data/alphabetData.txt for example 2 or ./data/piratesData.txt for example 3
     badStates: Set[State] = badStateReader(
-        "./data/badStates.txt"
-    )  # change to ./data/alphabetBadStates.txt for example 2
+        "./data/BadStates.txt"
+    )  # change to ./data/alphabetBadStates.txt for example 2 or ./data/piratesBadStates.txt for example 3
     game.addBadStates(badStates)
 
     print(f"starting state of the game: {game.source}")
