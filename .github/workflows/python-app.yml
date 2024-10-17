@@ -1,0 +1,33 @@
+name: Python Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository code
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Set up Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9' # You can specify another version if needed
+
+    # Install dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+
+    # Set PYTHONPATH to include the src folder so the tests can find the code
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $GITHUB_ENV
+
+    # Run pytest on a specific test file (or you can run all tests by using just "pytest")
+    - name: Run specific test
+      run: python -m pytest testing/test_state.py
+
