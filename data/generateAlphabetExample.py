@@ -3,14 +3,14 @@ vowels = "aeiou"
 symbols = "!@#$%"
 
 with open("./data/alphabetData.txt", "w") as file:
-    names = " ".join([const for const in consts])
+    names: str = " ".join([const for const in consts])
     names = names + " " + " ".join([vowel for vowel in vowels])
     names = names + " " + " ".join([symbol for symbol in symbols])
     file.write(names + "\n")
 
     letters = consts + vowels + symbols
-    source = [0 for _ in letters]
-    target = [1 for _ in letters]
+    source: list[int] = [0 for _ in letters]
+    target: list[int] = [1 for _ in letters]
 
     file.write(" ".join(map(str, source)) + "\n")
     file.write(" ".join(map(str, target)) + "\n")
@@ -26,8 +26,10 @@ with open("./data/alphabetBadStates.txt", "w") as file:
                     continue
                 k += len(consts) + len(vowels)
 
-                stateLeft = [0 for _ in range(len(consts) + len(vowels) + len(symbols))]
-                stateRight = [
+                stateLeft: list[int] = [
+                    0 for _ in range(len(consts) + len(vowels) + len(symbols))
+                ]
+                stateRight: list[int] = [
                     1 for _ in range(len(consts) + len(vowels) + len(symbols))
                 ]
 

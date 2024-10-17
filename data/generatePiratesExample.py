@@ -1,7 +1,7 @@
 from itertools import product
 from copy import deepcopy
 
-itemNames = ["Captain"]
+itemNames: list[str] = ["Captain"]
 
 numberPirates = 3
 for i in range(numberPirates):
@@ -13,8 +13,8 @@ for i in range(numberOfGold):
 
 with open("./data/piratesData.txt", "w") as file:
     file.write(" ".join(itemNames) + "\n")
-    source = [0 for _ in itemNames]
-    target = [1 for _ in itemNames]
+    source: list[int] = [0 for _ in itemNames]
+    target: list[int] = [1 for _ in itemNames]
     file.write(" ".join(map(str, source)) + "\n")
     file.write(" ".join(map(str, target)) + "\n")
 
@@ -25,8 +25,8 @@ badStates: list[tuple] = []
 
 # checks if a state is illegal
 for perm in perms:
-    piratesLeft = sum(perm[1 : numberPirates + 1])
-    amountGoldLeft = sum(perm[1 + numberPirates : -1])
+    piratesLeft: int = sum(perm[1 : numberPirates + 1])
+    amountGoldLeft: int = sum(perm[1 + numberPirates : -1])
     # 2 or more pirates and a captain and less gold then pirates and captain combined,
     # this leads to a mutiny as the pirates outnumber the captain and the pirates dont have gold to keep them satisfied
     if piratesLeft >= 2 and perm[0] == 1 and amountGoldLeft < piratesLeft:
