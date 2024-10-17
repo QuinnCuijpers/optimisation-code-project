@@ -1,6 +1,6 @@
 from .state import State
 from .farmerGame import FarmerGame
-from typing import Set, List
+from typing import Set, List, Callable
 
 
 def gameReader(filePath: str) -> FarmerGame:
@@ -68,8 +68,9 @@ def badStateReader(filePath: str) -> Set[State]:
         Set[State]: A set of `State` objects representing the bad states.
     """
     boolMapping = lambda x: x == "1"
+
     with open(filePath, "r") as file:
-        lines = file.readlines()
+        lines: List[str] = file.readlines()
         nBadStates: int = int(lines[0])
         badStates: set[State] = set()
         for i in range(nBadStates):

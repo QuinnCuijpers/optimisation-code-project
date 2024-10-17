@@ -31,8 +31,8 @@ class State:
             prev (Optional["State"], optional): A reference to the previous `State` object, useful for backtracking through states.
                 Defaults to None.
         """
-        self.itemsLeft = itemsLeft
-        self.prev = prev
+        self.itemsLeft: List[bool] = itemsLeft
+        self.prev: State | None = prev
 
     @classmethod
     def addItemNames(cls, itemNames: tuple[str, ...]) -> None:
@@ -67,7 +67,7 @@ class State:
             return self.itemsLeft == other.itemsLeft
         return False
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         # This allows the state to be used in a set or as a dictionary key
         return hash(tuple(self.itemsLeft))
 

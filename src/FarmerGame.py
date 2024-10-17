@@ -32,7 +32,7 @@ class FarmerGame:
                 Defaults to None if no bad states are specified.
         """
 
-        self.itemNames = itemNames
+        self.itemNames: tuple[str, ...] = itemNames
         if not badStates:
             self.badStates: Set[State] = set()
         else:
