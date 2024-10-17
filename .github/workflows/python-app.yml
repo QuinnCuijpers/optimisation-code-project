@@ -31,5 +31,5 @@ jobs:
 
     # Run pytest on a specific test file (or you can run all tests by using just "pytest")
     - name: Run specific test
-      run: pytest --setup-plan
+      run: pytest 
 
