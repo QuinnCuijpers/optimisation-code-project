@@ -25,9 +25,11 @@ jobs:
 
     # Set PYTHONPATH to include the src folder so the tests can find the code
     - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $GITHUB_ENV
+      run: |
+        echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $GITHUB_ENV
+        echo $GITHUB_ENV
 
     # Run pytest on a specific test file (or you can run all tests by using just "pytest")
     - name: Run specific test
-      run: python -m pytest testing/test_state.py
+      run: pytest --setup-plan
 
