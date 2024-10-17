@@ -1,5 +1,5 @@
 import unittest
-from src.state import State
+from ..src.state import State
 
 
 class TestState(unittest.TestCase):
