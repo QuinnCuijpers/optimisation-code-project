@@ -1,24 +1,37 @@
-from setuptools import setup, find_packages
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+from __future__ import absolute_import
+from __future__ import print_function
+
+import io
+import re
+from glob import glob
+from os.path import basename
+from os.path import dirname
+from os.path import join
+from os.path import splitext
+
+from setuptools import find_packages  # type: ignore
+from setuptools import setup
+
+
+def read(*names, **kwargs):
+    with io.open(
+        join(dirname(__file__), *names), encoding=kwargs.get("encoding", "utf8")
+    ) as fh:
+        return fh.read()
+
 
 setup(
-    name="farmergame",
-    version="0.1",
-    package_dir={"": "src"},  # Indicate that packages are under the 'src' directory
-    packages=find_packages(where='src'),  # Find packages in the 'src' directory
-    author="Quinn Cuijpers",  # Replace with your name
-    author_email="Quinn.Cuijpers@gmail.com",  # Replace with your email
-    description="A package to solve the farmer's problem.",
-    # long_description=open("README.md").read(),  # Assumes you have a README file
-    long_description_content_type='text/markdown',
-    url="https://github.com/QuinnCuijpers/farmergame",  # Replace with your repository URL
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "Operating System :: OS Independent",
-    ],
-    python_requires='>=3.6',  # Specify the minimum Python version
-    install_requires=[
-        # Add your project's dependencies here
-        # "somepackage>=1.0.0",
-    ],
+    name="nameless",
+    version="1.753.10",
+    license="BSD-2-Clause",
+    author="Quinn Cuijpers",
+    author_email="Quinn.Cuijpers@gmail.com",
+    url="https://github.com/QuinnCuijpers/optimisation-code-project",
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
+    include_package_data=True,
+    zip_safe=False,
 )
-
