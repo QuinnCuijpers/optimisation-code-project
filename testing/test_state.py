@@ -1,8 +1,5 @@
-import unittest
-import sys, os
-
-sys.path.append(os.path.realpath(os.path.dirname(__file__) + "/.."))
 from src.state import State
+import unittest
 
 
 class TestState(unittest.TestCase):
@@ -24,7 +21,8 @@ class TestState(unittest.TestCase):
     def test_add_item_names(self):
         State.addItemNames(("farmer", "Wolf", "Goat", "Cabbage"))
         state = State((1, 1, 1, 1))
-        self.assertTrue(state.itemNames == ("farmer", "Wolf", "Goat", "Cabbage"))
+        expr = state.itemNames == ("farmer", "Wolf", "Goat", "Cabbage")
+        self.assertTrue(expr)
 
     def test_default_item_names(self):
         self.assertTrue(State.itemNames == tuple("Itemnames not set"))
@@ -40,7 +38,7 @@ class TestState(unittest.TestCase):
         state2 = State([1, 1, 1, 1], state)
         self.assertTrue(state == state2)
 
-    def test_eq_within_diff_prev(self):
+    def test_eq_within_diff(self):
         state = State([1, 1, 1, 1])
         state2 = State([1, 1, 1, 1])
         self.assertTrue(state == state2)
