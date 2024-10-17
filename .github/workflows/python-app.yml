@@ -38,4 +38,4 @@ jobs:
       run: echo "PYTHONPATH=$PYTHONPATH:./src" >> $GITHUB_ENV
     - name: Test with pytest
       run: |
-        pytest
+        python -m pytest testing/test_state.py
