@@ -58,9 +58,21 @@ class FarmerGame:
 
         Args:
             badStates (Iterable[State]): Iterable of states to be added to the `badStates` attribute of `FarmerGame`.
+
+        Raises:
+            ValueError: If a state equal to the source state is attempted to be added.
+            ValueError: If a state equal to the target state is attempted to be added.
         """
-        for State in badStates:
-            self.badStates.add(State)
+        for state in badStates:
+            if state == self.source:
+                raise ValueError(
+                    f"Attempted to add state {state} which is the source state"
+                )
+            elif state == self.target:
+                raise ValueError(
+                    f"Attempted to add state {state} which is the target state"
+                )
+            self.badStates.add(state)
 
     def __backTrack(self, endState: State) -> tuple[List[State], bool]:
         """
@@ -148,7 +160,7 @@ class FarmerGame:
 
         while q:
             curr: State = q.popleft()
-            if curr.itemsLeft == self.target.itemsLeft:
+            if curr == self.target:
                 path: List[State]
                 succes: bool
                 path, succes = self.__backTrack(curr)
