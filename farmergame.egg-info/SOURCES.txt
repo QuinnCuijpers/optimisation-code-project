@@ -1,9 +1,0 @@
-setup.py
-farmergame.egg-info/PKG-INFO
-farmergame.egg-info/SOURCES.txt
-farmergame.egg-info/dependency_links.txt
-farmergame.egg-info/top_level.txt
-src/__init__.py
-src/dataReader.py
-src/farmerGame.py
-src/state.py

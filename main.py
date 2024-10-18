@@ -1,7 +1,7 @@
-from src.project.farmerGame import FarmerGame
-from src.project.state import State
+from src.farmerGame.farmerGame import FarmerGame
+from src.farmerGame.state import State
 from typing import Set
-from src.project.dataReader import gameReader, badStateReader
+from src.farmerGame.dataReader import gameReader, badStateReader
 
 
 if __name__ == "__main__":

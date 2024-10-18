@@ -1,4 +1,4 @@
-from src.project.state import State
+from src.farmerGame.state import State
 import unittest
 
 
