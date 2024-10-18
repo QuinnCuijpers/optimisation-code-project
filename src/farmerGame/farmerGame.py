@@ -41,14 +41,20 @@ class FarmerGame:
         self.target: Optional[State] = None
 
     def setSource(self, source: State) -> None:
-        if source in self.badStates:
-            raise ValueError("Source State is a bad State")
+        if self.badStates is not None:
+            if source in self.badStates:
+                raise ValueError("Source State is a bad State")
+            else:
+                self.source = source
         else:
             self.source = source
 
     def setTarget(self, target: State) -> None:
-        if target in self.badStates:
-            raise ValueError("target State is a bad State")
+        if self.badStates is not None:
+            if target in self.badStates:
+                raise ValueError("Source State is a bad State")
+            else:
+                self.target = target
         else:
             self.target = target
 

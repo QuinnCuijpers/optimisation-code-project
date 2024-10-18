@@ -50,6 +50,8 @@ class State:
         cls.itemNames = itemNames
 
     def __str__(self) -> str:
+        if self.itemNames == tuple("Itemnames not set"):
+            return "State without names"
         return (
             "["
             + ", ".join(
