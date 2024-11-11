@@ -16,31 +16,31 @@ class FarmerGame:
     """
 
     def __init__(
-        self, itemNames: tuple[str, ...], badStates: Optional[Set[State]] = None
+        self, item_names: tuple[str, ...], bad_states: Optional[Set[State]] = None
     ) -> None:
         """
         Initializes a Farmer's Game with the provided items and optionally defines bad states.
 
-        This method sets up the game based on a tuple of `itemNames`, which represent the items involved in the game.
+        This method sets up the game based on a tuple of `item_names`, which represent the items involved in the game.
         The first item in the tuple is always the item (Farmer), that is required to cross the river with any other items.
         Additionally, a set of "bad" or forbidden states can be provided to specify configurations that are not allowed.
 
         Args:
-            itemNames (tuple[str, ...]): A tuple of strings representing the names of the items in the game.
+            item_names (tuple[str, ...]): A tuple of strings representing the names of the items in the game.
                 The first item in the tuple is the farmer, who must always accompany other items during crossings.
-            badStates (Optional[Set[State]], optional): A set of states that are considered illegal and should be avoided.
+            bad_states (Optional[Set[State]], optional): A set of states that are considered illegal and should be avoided.
                 Defaults to None if no bad states are specified.
         """
 
-        self.itemNames: tuple[str, ...] = itemNames
-        if not badStates:
+        self.itemNames: tuple[str, ...] = item_names
+        if not bad_states:
             self.badStates: Set[State] = set()
         else:
-            self.badStates = badStates
+            self.badStates = bad_states
         self.source: Optional[State] = None
         self.target: Optional[State] = None
 
-    def setSource(self, source: State) -> None:
+    def set_source(self, source: State) -> None:
         if self.badStates is not None:
             if source in self.badStates:
                 raise ValueError("Source State is a bad State")
@@ -49,7 +49,7 @@ class FarmerGame:
         else:
             self.source = source
 
-    def setTarget(self, target: State) -> None:
+    def set_target(self, target: State) -> None:
         if self.badStates is not None:
             if target in self.badStates:
                 raise ValueError("Source State is a bad State")
@@ -58,18 +58,18 @@ class FarmerGame:
         else:
             self.target = target
 
-    def addBadStates(self, badStates: Iterable[State]) -> None:
+    def add_bad_states(self, bad_states: Iterable[State]) -> None:
         """
-        Adds all states in the given Iterable to `badStates`.
+        Adds all states in the given Iterable to `bad_states`.
 
         Args:
-            badStates (Iterable[State]): Iterable of states to be added to the `badStates` attribute of `FarmerGame`.
+            bad_states (Iterable[State]): Iterable of states to be added to the `bad_states` attribute of `FarmerGame`.
 
         Raises:
             ValueError: If a state equal to the source state is attempted to be added.
             ValueError: If a state equal to the target state is attempted to be added.
         """
-        for state in badStates:
+        for state in bad_states:
             if state == self.source:
                 raise ValueError(
                     f"Attempted to add state {state} which is the source state"
@@ -80,7 +80,8 @@ class FarmerGame:
                 )
             self.badStates.add(state)
 
-    def __backTrack(self, endState: State) -> tuple[List[State], bool]:
+    @staticmethod
+    def __back_track(end_state: State) -> tuple[List[State], bool]:
         """
         Private method to compute a path to the specified end state by tracing back through its predecessors.
 
@@ -88,7 +89,7 @@ class FarmerGame:
         leading to the given `endState`, effectively creating a path from the starting state to the target.
 
         Args:
-            endState (State): The state for which the path is to be computed, based on its successive predecessors.
+            end_state (State): The state for which the path is to be computed, based on its successive predecessors.
 
         Returns:
             tuple(List[State], bool): A tuple where the first element is a list of `State` objects representing the
@@ -96,16 +97,16 @@ class FarmerGame:
             the path was successfully found. If no path exists, the return value defaults to ([], False).
         """
 
-        path: List[State] = [endState]
-        while endState.prev:
-            path.append(endState.prev)
-            endState = endState.prev
+        path: List[State] = [end_state]
+        while end_state.prev:
+            path.append(end_state.prev)
+            end_state = end_state.prev
         return path[::-1], True
 
-    def __movesFromPath(self, path: List[State]) -> None:
+    def __moves_from_path(self, path: List[State]) -> None:
         """
         private method that returns the actions required to take for the given path using the following format:
-        f"Move {rightMovedItems} right" or f"Move {leftMovedItems} left".
+        f"Move {right_moved_items} right" or f"Move {left_moved_items} left".
 
         Args:
             path (List[State]): list of states representing a path.
@@ -117,32 +118,32 @@ class FarmerGame:
 
         for i in range(len(path) - 1):
             curr: State = path[i]
-            next: State = path[i + 1]
-            leftIdx: List[int] = []
-            rightIdx: List[int] = []
+            next_state: State = path[i + 1]
+            left_idx: List[int] = []
+            right_idx: List[int] = []
 
-            for idx, values in enumerate(zip(curr.itemsLeft, next.itemsLeft)):
+            for idx, values in enumerate(zip(curr.items_left, next_state.items_left)):
                 diff: int = int(values[1]) - int(values[0])
                 if diff == 0:
                     continue
                 elif diff == 1:
-                    leftIdx.append(idx)
+                    left_idx.append(idx)
                 elif diff == -1:
-                    rightIdx.append(idx)
+                    right_idx.append(idx)
 
-            leftMovedItems: str = ", ".join([curr.itemNames[idx] for idx in leftIdx])
-            rightMovedItems: str = ", ".join([curr.itemNames[idx] for idx in rightIdx])
-            if leftMovedItems:
-                print(f"Move {leftMovedItems} left")
-            elif rightMovedItems:
-                print(f"move {rightMovedItems} right")
+            left_moved_items: str = ", ".join([curr.itemNames[idx] for idx in left_idx])
+            right_moved_items: str = ", ".join([curr.itemNames[idx] for idx in right_idx])
+            if left_moved_items:
+                print(f"Move {left_moved_items} left")
+            elif right_moved_items:
+                print(f"move {right_moved_items} right")
 
-    def bfs(self, printActions: bool = False) -> tuple[List[State], bool]:
+    def bfs(self, print_actions: bool = False) -> tuple[List[State], bool]:
         """
         Performs a breadth-first search (BFS) to find a valid path from the source state to the target state.
 
         Args:
-            printActions (bool, optional): If True, prints the sequence of actions required to go from the source state
+            print_actions (bool, optional): If True, prints the sequence of actions required to go from the source state
                 to the target state. Defaults to False.
 
         Raises:
@@ -161,22 +162,22 @@ class FarmerGame:
         if not isinstance(self.target, State):
             raise ValueError("Target is not specified")
         q: Deque[State] = deque()
-        visited: Set[State] = set([self.source])
+        visited: Set[State] = {self.source}
         q.append(self.source)
 
         while q:
             curr: State = q.popleft()
             if curr == self.target:
                 path: List[State]
-                succes: bool
-                path, succes = self.__backTrack(curr)
-                if printActions:
-                    self.__movesFromPath(path)
-                    return path, succes
+                success: bool
+                path, success = self.__back_track(curr)
+                if print_actions:
+                    self.__moves_from_path(path)
+                    return path, success
                 else:
-                    return path, succes
+                    return path, success
 
-            for neighbour in curr.getNeighbours():
+            for neighbour in curr.get_neighbours():
                 if neighbour not in visited:
                     if neighbour not in self.badStates:
                         visited.add(neighbour)

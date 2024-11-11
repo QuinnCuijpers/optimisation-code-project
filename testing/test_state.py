@@ -18,8 +18,8 @@ class TestState(unittest.TestCase):
         self.assertEqual(self.state1.prev, self.prev_state)
 
     def test_add_item_names(self):
-        """Test that addItemNames sets the class-level itemNames correctly"""
-        State.addItemNames(("Farmer", "Wolf", "Goat", "Cabbage"))
+        """Test that addItemNames sets the class-level item_names correctly"""
+        State.add_item_names(("Farmer", "Wolf", "Goat", "Cabbage"))
         self.assertEqual(State.itemNames, ("Farmer", "Wolf", "Goat", "Cabbage"))
 
     def test_eq_method(self):
@@ -36,8 +36,8 @@ class TestState(unittest.TestCase):
 
     def test_neighboring_states(self):
         """Test that neighbors are generated correctly"""
-        State.addItemNames(("Farmer", "Wolf", "Goat", "Cabbage"))
-        neighbors = self.state1.getNeighbours()
+        State.add_item_names(("Farmer", "Wolf", "Goat", "Cabbage"))
+        neighbors = self.state1.get_neighbours()
         self.assertTrue(isinstance(neighbors, list))
         for neighbor in neighbors:
             self.assertIsInstance(neighbor, State)
@@ -50,8 +50,8 @@ class TestState(unittest.TestCase):
     def test_invalid_neighbors(self):
         """Test that invalid neighbor states are not generated"""
         # Assuming your logic prevents certain illegal moves
-        State.addItemNames(("Farmer", "Wolf", "Goat", "Cabbage"))
-        neighbors = self.state1.getNeighbours()
+        State.add_item_names(("Farmer", "Wolf", "Goat", "Cabbage"))
+        neighbors = self.state1.get_neighbours()
         # Ensure no invalid neighbor exists (for example, a state with an illegal configuration)
         invalid_state = State([False, False, True, True])  # Example invalid state
         self.assertNotIn(invalid_state, neighbors)

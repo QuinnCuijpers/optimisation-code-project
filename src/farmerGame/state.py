@@ -9,16 +9,16 @@ class State:
     to the previous state, allowing for backtracking during the search for a solution.
 
     Attributes:
-        itemNames (tuple[str, ...]): A class-level attribute that stores the names of the items involved in the game.
-            It is initialized with a default value of "Itemnames not set" and can be updated using the `addItemNames` method.
-        itemsLeft (List[bool]): A list of boolean values indicating the position of each item.
+        item_names (tuple[str, ...]): A class-level attribute that stores the names of the items involved in the game.
+            It is initialized with a default value of "Item names not set" and can be updated using the `addItemNames` method.
+        items_left (List[bool]): A list of boolean values indicating the position of each item.
             `True` means the item is on the left side, and `False` means it is on the right.
         prev (Optional[State]): A reference to the previous state, allowing the construction of a path through the states.
     """
 
-    itemNames: tuple[str, ...] = tuple("Itemnames not set")
+    item_names: tuple[str, ...] = tuple("Item names not set")
 
-    def __init__(self, itemsLeft: List[bool], prev: Optional["State"] = None):
+    def __init__(self, items_left: List[bool], prev: Optional["State"] = None):
         """
         Creates a `State` object representing the positions of items based on a list of booleans.
 
@@ -26,31 +26,31 @@ class State:
         Optionally, a reference to the previous `State` can be provided to enable backtracking.
 
         Args:
-            itemsLeft (List[bool]): A list of booleans where `True` represents the item being on the left side,
+            items_left (List[bool]): A list of booleans where `True` represents the item being on the left side,
                 and `False` represents the item being on the right side.
             prev (Optional["State"], optional): A reference to the previous `State` object, useful for backtracking through states.
                 Defaults to None.
         """
-        self.itemsLeft: List[bool] = itemsLeft
+        self.items_left: List[bool] = items_left
         self.prev: State | None = prev
 
     @classmethod
-    def addItemNames(cls, itemNames: tuple[str, ...]) -> None:
+    def add_item_names(cls, item_names: tuple[str, ...]) -> None:
         """
         Sets the names of the items for the `State` class.
 
-        This class method allows the assignment of item names to the class-level attribute `itemNames`.
+        This class method allows the assignment of item names to the class-level attribute `item_names`.
         These names are used to describe each item in the state representation of the game.
 
         Args:
-            itemNames (tuple[str, ...]): A tuple containing the names of the items. The length of this tuple should match the
-                number of items in the game (or the number of boolean values in the `itemsLeft` attribute of each `State`).
+            item_names (tuple[str, ...]): A tuple containing the names of the items. The length of this tuple should match the
+                number of items in the game (or the number of boolean values in the `items_left` attribute of each `State`).
 
         """
-        cls.itemNames = itemNames
+        cls.itemNames = item_names
 
     def __str__(self) -> str:
-        if self.itemNames == tuple("Itemnames not set"):
+        if self.itemNames == tuple("Item names not set"):
             return "State without names"
         return (
             "["
@@ -58,7 +58,7 @@ class State:
                 [
                     self.itemNames[i]
                     for i in range(len(self.itemNames))
-                    if self.itemsLeft[i]
+                    if self.items_left[i]
                 ]
             )
             + "]"
@@ -66,14 +66,14 @@ class State:
 
     def __eq__(self, other) -> bool:
         if isinstance(other, State):
-            return self.itemsLeft == other.itemsLeft
+            return self.items_left == other.items_left
         return False
 
     def __hash__(self) -> int:
         # This allows the state to be used in a set or as a dictionary key
-        return hash(tuple(self.itemsLeft))
+        return hash(tuple(self.items_left))
 
-    def getNeighbours(self) -> List["State"]:
+    def get_neighbours(self) -> List["State"]:
         """
         Finds all neighboring states based on the current state's configuration.
 
@@ -88,31 +88,31 @@ class State:
         prev: State = self
 
         # farmer is on the right
-        if not self.itemsLeft[0]:
-            self.itemsLeft[0] = True
-            neighbour = State(self.itemsLeft.copy(), prev)
+        if not self.items_left[0]:
+            self.items_left[0] = True
+            neighbour = State(self.items_left.copy(), prev)
             neighbours.append(neighbour)
 
-            for i in range(1, len(self.itemsLeft)):
-                if not self.itemsLeft[i]:
-                    self.itemsLeft[i] = True
-                    neighbour = State(self.itemsLeft.copy(), prev)
+            for i in range(1, len(self.items_left)):
+                if not self.items_left[i]:
+                    self.items_left[i] = True
+                    neighbour = State(self.items_left.copy(), prev)
                     neighbours.append(neighbour)
-                    self.itemsLeft[i] = False
-            self.itemsLeft[0] = False
+                    self.items_left[i] = False
+            self.items_left[0] = False
 
         # farmer is on the left
-        if self.itemsLeft[0]:
-            self.itemsLeft[0] = False
-            neighbour = State(self.itemsLeft.copy(), prev)
+        if self.items_left[0]:
+            self.items_left[0] = False
+            neighbour = State(self.items_left.copy(), prev)
             neighbours.append(neighbour)
 
-            for i in range(1, len(self.itemsLeft)):
-                if self.itemsLeft[i]:
-                    self.itemsLeft[i] = False
-                    neighbour = State(self.itemsLeft.copy(), prev)
+            for i in range(1, len(self.items_left)):
+                if self.items_left[i]:
+                    self.items_left[i] = False
+                    neighbour = State(self.items_left.copy(), prev)
                     neighbours.append(neighbour)
-                    self.itemsLeft[i] = True
-            self.itemsLeft[0] = True
+                    self.items_left[i] = True
+            self.items_left[0] = True
 
         return neighbours

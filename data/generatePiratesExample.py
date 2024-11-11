@@ -11,6 +11,7 @@ numberOfGold = 5
 for i in range(numberOfGold):
     itemNames += [f"Gold{i}"]
 
+# noinspection DuplicatedCode
 with open("./data/piratesData.txt", "w") as file:
     file.write(" ".join(itemNames) + "\n")
     source: list[int] = [0 for _ in itemNames]
@@ -27,8 +28,8 @@ badStates: list[tuple] = []
 for perm in perms:
     piratesLeft: int = sum(perm[1 : numberPirates + 1])
     amountGoldLeft: int = sum(perm[1 + numberPirates : -1])
-    # 2 or more pirates and a captain and less gold then pirates and captain combined,
-    # this leads to a mutiny as the pirates outnumber the captain and the pirates dont have gold to keep them satisfied
+    # 2 or more pirates and a captain and less gold than pirates and captain combined,
+    # this leads to a mutiny as the pirates outnumber the captain and the pirates don't have gold to keep them satisfied
     if piratesLeft >= 2 and perm[0] == 1 and amountGoldLeft < piratesLeft:
         badStates.append(deepcopy(perm))
 

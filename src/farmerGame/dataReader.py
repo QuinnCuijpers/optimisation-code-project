@@ -1,9 +1,9 @@
 from .state import State
 from .farmerGame import FarmerGame
-from typing import Set, List, Callable
+from typing import Set, List
 
 
-def gameReader(filePath: str) -> FarmerGame:
+def game_reader(file_path: str) -> FarmerGame:
     """
     Creates a `FarmerGame` object from a data file.
 
@@ -12,7 +12,7 @@ def gameReader(filePath: str) -> FarmerGame:
     2. A binary representation of the source state, where `1` at position `i` indicates that item `i` is on the left side.
     3. A binary representation of the target state, where `1` at position `i` indicates that item `i` is on the left side.
 
-    This method reads the item names, the source state, and the target state from the file. It does not initialize the `badStates`
+    This method reads the item names, the source state, and the target state from the file. It does not initialize the `bad_states`
     property; that is done separately via the `badStateReader`.
 
     ### Example of a valid data file:
@@ -21,29 +21,29 @@ def gameReader(filePath: str) -> FarmerGame:
         1 1 1 1
 
     Args:
-        filePath (str): Path to the file containing the data for the `FarmerGame` object.
+        file_path (str): Path to the file containing the data for the `FarmerGame` object.
 
     Returns:
-        FarmerGame: The `FarmerGame` object accosiated with the given input file
+        FarmerGame: The `FarmerGame` object associated with the given input file
     """
-    boolMapping = lambda x: x == "1"
+    def bool_mapping(x): return x == "1"
 
-    with open(filePath, "r") as file:
+    with open(file_path, "r") as file:
         lines: List[str] = file.readlines()
-        itemNames: tuple[str, ...] = tuple(lines[0].split())
-        game = FarmerGame(itemNames)
-        State.addItemNames(itemNames)
+        item_names: tuple[str, ...] = tuple(lines[0].split())
+        game = FarmerGame(item_names)
+        State.add_item_names(item_names)
 
-        source: State = State(list(map(boolMapping, lines[1].split())))
-        target: State = State(list(map(boolMapping, lines[2].split())))
+        source: State = State(list(map(bool_mapping, lines[1].split())))
+        target: State = State(list(map(bool_mapping, lines[2].split())))
 
-        game.setSource(source)
-        game.setTarget(target)
+        game.set_source(source)
+        game.set_target(target)
 
     return game
 
 
-def badStateReader(filePath: str) -> Set[State]:
+def bad_state_reader(file_path: str) -> Set[State]:
     """
     Creates a set of states from a file
 
@@ -62,18 +62,18 @@ def badStateReader(filePath: str) -> Set[State]:
 
 
     Args:
-        filePath (str): path to the file containing the data for the badStates.
+        file_path (str): path to the file containing the data for the bad_states.
 
     Returns:
         Set[State]: A set of `State` objects representing the bad states.
     """
-    boolMapping = lambda x: x == "1"
+    def bool_mapping(x): return x == "1"
 
-    with open(filePath, "r") as file:
+    with open(file_path, "r") as file:
         lines: List[str] = file.readlines()
-        nBadStates: int = int(lines[0])
-        badStates: set[State] = set()
-        for i in range(nBadStates):
-            state = State(list(map(boolMapping, lines[i + 1].split())))
-            badStates.add(state)
-    return badStates
+        n_bad_states: int = int(lines[0])
+        bad_states: set[State] = set()
+        for i in range(n_bad_states):
+            state = State(list(map(bool_mapping, lines[i + 1].split())))
+            bad_states.add(state)
+    return bad_states

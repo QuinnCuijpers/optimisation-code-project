@@ -2,6 +2,7 @@ consts = "bcdfg"
 vowels = "aeiou"
 symbols = "!@#$%"
 
+# noinspection DuplicatedCode
 with open("./data/alphabetData.txt", "w") as file:
     names: str = " ".join([const for const in consts])
     names = names + " " + " ".join([vowel for vowel in vowels])
