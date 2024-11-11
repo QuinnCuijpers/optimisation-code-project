@@ -14,13 +14,13 @@ class TestState(unittest.TestCase):
 
     def test_initialization(self):
         """Test that State objects initialize correctly"""
-        self.assertEqual(self.state1.itemsLeft, self.items_left1)
+        self.assertEqual(self.state1.items_left, self.items_left1)
         self.assertEqual(self.state1.prev, self.prev_state)
 
     def test_add_item_names(self):
         """Test that addItemNames sets the class-level item_names correctly"""
         State.add_item_names(("Farmer", "Wolf", "Goat", "Cabbage"))
-        self.assertEqual(State.itemNames, ("Farmer", "Wolf", "Goat", "Cabbage"))
+        self.assertEqual(State.item_names, ("Farmer", "Wolf", "Goat", "Cabbage"))
 
     def test_eq_method(self):
         """Test equality comparison between two State objects"""

@@ -131,8 +131,8 @@ class FarmerGame:
                 elif diff == -1:
                     right_idx.append(idx)
 
-            left_moved_items: str = ", ".join([curr.itemNames[idx] for idx in left_idx])
-            right_moved_items: str = ", ".join([curr.itemNames[idx] for idx in right_idx])
+            left_moved_items: str = ", ".join([curr.item_names[idx] for idx in left_idx])
+            right_moved_items: str = ", ".join([curr.item_names[idx] for idx in right_idx])
             if left_moved_items:
                 print(f"Move {left_moved_items} left")
             elif right_moved_items:

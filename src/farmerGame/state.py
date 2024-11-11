@@ -10,7 +10,7 @@ class State:
 
     Attributes:
         item_names (tuple[str, ...]): A class-level attribute that stores the names of the items involved in the game.
-            It is initialized with a default value of "Item names not set" and can be updated using the `addItemNames` method.
+            It is initialized with a default value of "Item names not set" and can be updated using the `additem_names` method.
         items_left (List[bool]): A list of boolean values indicating the position of each item.
             `True` means the item is on the left side, and `False` means it is on the right.
         prev (Optional[State]): A reference to the previous state, allowing the construction of a path through the states.
@@ -47,17 +47,17 @@ class State:
                 number of items in the game (or the number of boolean values in the `items_left` attribute of each `State`).
 
         """
-        cls.itemNames = item_names
+        cls.item_names = item_names
 
     def __str__(self) -> str:
-        if self.itemNames == tuple("Item names not set"):
+        if self.item_names == tuple("Item names not set"):
             return "State without names"
         return (
             "["
             + ", ".join(
                 [
-                    self.itemNames[i]
-                    for i in range(len(self.itemNames))
+                    self.item_names[i]
+                    for i in range(len(self.item_names))
                     if self.items_left[i]
                 ]
             )
